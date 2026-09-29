@@ -2,16 +2,21 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Install') {
+        stage('Install Dependencies') {
             steps {
-                bat 'C:\\Users\\Admin\\AppData\\Local\\Python\\bin\\python.exe -m pip install -r requirements.txt'
+                bat 'flutter pub get'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'C:\\Users\\Admin\\AppData\\Local\\Python\\bin\\python.exe -m pytest'
+                bat 'flutter test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'flutter build apk --release'
             }
         }
     }
